@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Picture Gallery</h1>
+    <h2>Picture Gallery</h2>
     <ul>
         {% for picture in pictures %}
             <a href="{% url 'picture_details' id=picture.pk %}">
