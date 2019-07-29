@@ -1,4 +1,27 @@
-<h1>{{ picture.title }}</h1>
-<h2>By {{ picture.artist }}</h2>
 
-<img src="{{ picture.url }}" alt="{{ picture.title }}" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{ picture.title }}</h1>
+    <h2>By {{ picture.artist }}</h2>
+        
+    <img src="{{ picture.url }}" alt="{{ picture.title }}" />
+        
+    <ul>
+        {% for comment in picture.comments.all %}
+            <li> {{ comment.name }}</li>
+            <li> {{ comment.created_at }}</li>
+            <li> {{ comment.message }} </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+
+<!-- #MAKE A VIEWS FUNCTION FOR COMMENT TO LOOP THROUGH -->
