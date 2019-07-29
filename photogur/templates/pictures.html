@@ -10,12 +10,12 @@
     <h1>Picture Gallery</h1>
     <ul>
         {% for picture in pictures %}
-            <li>
-                {{ picture.title }}
-                <img src='{{ picture.url }}' alt="Error9000">
-                {{ picture.artist }}
-                {{ picture.comments.count }}
-            </li>
+            <a href="{% url 'picture_details' id=picture.pk %}">
+                <li><img src='{{ picture.url }}' alt="Error9000"></li>
+            </a>
+                <p>{{ picture.title }}</p>
+                <p>{{ picture.artist }}</p>
+                <p>{{ picture.comments.count }}</p>
         {% endfor %}
     </ul>
 </body>
