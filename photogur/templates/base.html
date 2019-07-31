@@ -12,11 +12,20 @@
 <body>
     <header> 
         <nav class = "main_header">
-            <h1>Photogur</h1>
+            <h1><a href="/pictures">Photogur</h1></a>
+            <form action="{% url 'picture_search' %}" method="GET">
+                <label for="picture-search">
+                    <span>Search:</span>
+                    <input type="search" id="picture-search" name="query" />
+                </label>
+                <input type="submit" value="Search" /> 
+            </form>
         </nav>
     </header>
+    <main>
         {% block content %}
         {% endblock %}
-    <footer class = "main_footer">Copyright Shaheer Choudhury © 2019</footer>
+    </main>
+    <footer class = "main_footer">Copyright © Shaheer Choudhury ~ 2019 ~</footer>
 </body>
 </html>
