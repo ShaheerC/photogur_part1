@@ -4,7 +4,19 @@
     <h4>By {{ picture.artist }}</h4>
         
     <img src="{{ picture.url }}" alt="{{ picture.title }}" />
+    <form action="{% url 'create_comment' %}" method="post">
+        {% csrf_token %}
         
+        <input type="hidden" name="picture" value="{{ picture.pk }}">
+
+        <label for="name">name</label>
+        <input type="text" name="name" class="comment_form">
+        
+        <label for="message">message</label>
+        <textarea rows="10" cols="50" name="comment" value="leave comment please" class="comment_form"></textarea>
+
+        <input type="submit" name="submit" value="submit" class="comment_form">   
+    </form>  
     <ul>
         {% for comment in picture.comments.all %}
             <li> {{ comment.name }}</li>

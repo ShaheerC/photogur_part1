@@ -4,7 +4,7 @@
     <h3>Search results: <u>{{ pictures|length }}</u></h3>
     <div class="searched_div" >
     {% for picture in pictures %}
-        <img src ="{{ picture.url }}" alt="{{ picture.title }}" class="searched_images">
+        <img src ="{{ picture.url }}" alt="{{ picture.title }}" class="searched_images">  
         <p class="searched_info"><i>{{ picture.title }}</i> by {{ picture.artist }}</p>
     {% endfor %}
     </div>
