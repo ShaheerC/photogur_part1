@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
 from photogur.models import *
 from photogur.forms import *
 
@@ -32,6 +33,23 @@ def create_comment(request):
     return HttpResponseRedirect(f'/pictures/{picture_id}')
 
 def login_view(request):
-    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            pw = form.cleaned_data['password']
+            user = authenticate(username=username, password=pw)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/pictures')
+            else:
+                form.add_error('username', 'Login failed')
+    else:
+        form = LoginForm()
+
     context = {'form': form}
     return render(request, 'login.html', context)
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/pictures')
