@@ -20,6 +20,7 @@
                 </label>
                 <input type="submit" value="Search" /> 
                 <ul>
+                    <li><h5><a href="/signup">Sign Up</h5></a></li>
                     <li>{% if request.user.is_authenticated %}
                             <h5><a href="/logout">Logout</h5></a>
                         {% else %}
