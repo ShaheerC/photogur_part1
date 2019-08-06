@@ -68,3 +68,19 @@ def signup(request):
         form = UserCreationForm()
     html_response = render(request, 'signup.html', {'form': form})
     return HttpResponse(html_response)
+
+def new_picture(request):
+    form = PictureForm()
+    context = {"form": form, "message": 'Upload new picture', "action": "/pictures/create"}
+    return render(request, 'pictureform.html', context)
+
+def create_picture(request):
+    form = PictureForm(request.POST)
+    if form.is_valid():
+        picture = form.save(commit=False)
+        picture.user = request.user
+        picture.save()
+        return HttpResponseRedirect("/pictures")
+    else:
+        context = {"form": form}
+        return render(request, 'pictureform.html', context)

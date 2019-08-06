@@ -19,11 +19,13 @@
                     <input type="search" id="picture-search" name="query" value="{{ query }}" />
                 </label>
                 <input type="submit" value="Search" /> 
-                {% if request.user.is_authenticated %}
-                    <h5><a href="/logout">Logout</h5></a>
-                {% else %}
-                    <h5><a href="/login">Login</h5></a>
-                {% endif %}
+                <ul>
+                    <li>{% if request.user.is_authenticated %}
+                            <h5><a href="/logout">Logout</h5></a>
+                        {% else %}
+                            <h5><a href="/login">Login</h5></a>
+                        {% endif %}</li>
+                    <li><h5><a href="/pictures/new">Upload Picture</h5></a></li>
             </form>
         </nav>
     </header>

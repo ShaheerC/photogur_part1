@@ -2,6 +2,7 @@
 {% block content %}
     <h2>{{ picture.title }}</h2>
     <h4>By {{ picture.artist }}</h4>
+    <h4>Uploaded By {{ picture.user.username }}</h4>
         
     <img src="{{ picture.url }}" alt="{{ picture.title }}" />
     <form action="{% url 'create_comment' %}" method="post">
