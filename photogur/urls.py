@@ -26,4 +26,5 @@ urlpatterns = [
     path('comments/new', create_comment, name='create_comment'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('signup/', signup, name='signup'),
 ]
