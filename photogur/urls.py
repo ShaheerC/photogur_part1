@@ -29,4 +29,5 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('pictures/new', new_picture, name='new_picture'),
     path('pictures/create', create_picture, name='create_picture'),
+    path('pictures/<int:id>/edit', edit_picture, name='edit_picture')
 ]

@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -37,6 +37,8 @@ def create_comment(request):
     return HttpResponseRedirect(f'/pictures/{picture_id}')
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/pictures')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -58,6 +60,8 @@ def logout_view(request):
     return HttpResponseRedirect('/pictures')
 
 def signup(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/pictures')
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -89,3 +93,21 @@ def create_picture(request):
     else:
         context = {"form": form}
         return render(request, 'pictureform.html', context)
+
+@login_required
+def edit_picture(request, id):
+    picture = get_object_or_404(Picture, pk=id, user=request.user.pk)
+    if request.method == 'POST':
+        form = PictureForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            artist = form.cleaned_data.get('artist')
+            url = form.cleaned_data.get('url')
+            picture.title = title
+            picture.artist = artist
+            picture.url = url
+            picture.save()
+            return HttpResponseRedirect('/pictures')
+    form = PictureForm(request.POST)
+    context = {'picture': picture, 'form': form}
+    return HttpResponse(render(request, 'edit.html', context))
