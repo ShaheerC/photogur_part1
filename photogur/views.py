@@ -2,8 +2,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from photogur.models import *
 from photogur.forms import *
+
 
 def pictures_root(request):
     return HttpResponseRedirect("/pictures")
@@ -24,6 +26,7 @@ def picture_search(request):
     context = {'pictures': search_results, 'query': query}
     return render(request, 'search.html', context)
 
+@login_required
 def create_comment(request):
     picture_id = request.POST['picture']
     picture = Picture.objects.filter(id=picture_id)[0]
@@ -69,11 +72,13 @@ def signup(request):
     html_response = render(request, 'signup.html', {'form': form})
     return HttpResponse(html_response)
 
+@login_required
 def new_picture(request):
     form = PictureForm()
     context = {"form": form, "message": 'Upload new picture', "action": "/pictures/create"}
     return render(request, 'pictureform.html', context)
 
+@login_required
 def create_picture(request):
     form = PictureForm(request.POST)
     if form.is_valid():
